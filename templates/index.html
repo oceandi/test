@@ -12,14 +12,15 @@
   <script src="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/lib/languages/python.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
   <style>
-    .bg {
+    .page {
       background-color: #232526;
     }
+
     .chat-box {
       background-color: #232526;
       border-radius: 15px;
       padding: 15px;
-      max-height: 400px;
+      height: 400px;
       overflow-y: auto;
     }
     .user-message {
@@ -34,20 +35,64 @@
       display: inline-block;
       padding: 10px;
       border-radius: 15px;
-      color:#ffffff
+      color:#cacfd6
     }
+
+    .form-control {
+      background-color: #232526;
+      border-color: #454550;
+      border-radius: 15px;
+      border-width: 1px;
+      resize: none;
+      min-height: 52px !important;
+      max-height: 53px !important;
+      padding-left: 30px; 
+      padding-bottom: 13px;
+      padding-top: 13px;
+      overflow-y: auto;
+    }
+
+    .form-control:focus {
+      background-color: #232526; /* Odaklanıldığında istediğiniz arka plan rengi */
+      color: #cacfd6; /* Metin rengi */
+      border-color: #585763; /* İsteğe bağlı sınır rengi */
+      outline: none;
+      box-shadow: none;
+    }
+
+    .send-icon {
+    height: 24px;
+    width: 24px;
+    fill: #ffffff;
+    }
+
+    .btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    flex-shrink: 0;
+    }
+
+    .btn:focus {
+      box-shadow: none;
+    }
+
   </style>
 </head>
-<body class="bg">
+<body class="page">
   <div class="container mt-5">
-    <h1 style="color:rgb(71, 62, 62)">Chat Bot</h1>
     <div class="chat-box mt-3">
       <!-- Chat messages will be added here dynamically -->
     </div>
-    <div class="form-group mt-3">
+    <div class="form-group mt-3" style="display: flex; align-items: center;">
       <textarea class="form-control" rows="3" placeholder="Message UnivacAI..." id="message-input"></textarea>
+      <button type="button" class="btn" id="send-btn">
+        <svg class="send-icon" viewBox="0 0 24 24">
+          <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
+        </svg>
+      </button>
     </div>
-    <button type="button" class="btn btn-primary" id="send-btn">Send</button>
   </div>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
