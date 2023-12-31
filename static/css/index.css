@@ -1,0 +1,191 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+.desktop {
+    inline-size: 100%;
+    block-size: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    background-color: #2e2e39;
+    overflow: hidden;
+    padding: 0px;
+    align-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    position: absolute;
+    border-radius: 0px;
+    font-family: Söhne,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,Helvetica Neue,Arial,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+}
+
+.container {
+    padding: 56px 28px 28px 28px;
+    width: 752px;
+    height: fit-content;
+}
+
+.chat-box {
+    padding: 15px;
+    block-size: calc(100vh - 150px); /* Sayfa yüksekliğine bağlı olarak ayarlayın (form kontrol alanını da hesaba katar) */
+    overflow-y: auto;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-block-end: 10px;
+}
+
+#message-input {
+    block-size: 24px;
+}
+
+.user-message {
+    text-align: start;
+    padding-inline-start: 0px;
+}
+
+.bot-message {
+    text-align: start;
+    padding-inline-start: 0px;
+}
+
+.user-message p, .bot-message p {
+    border-radius: 15px;
+    color:#cacfd6;
+    padding: 10px;
+    border-radius: 15px;
+    color: #cacfd6;
+    white-space: pre-wrap;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #454550;
+    border-radius: 15px;
+    transition: border-color 0.1s, background-color 0.1s; /* Geçiş efektlerini ekliyoruz */
+}
+
+.form-group:focus-within {
+    border: 1px solid #585763;
+    background-color: #2e2e39; /* Odaklandığında istediğiniz arka plan rengi */
+    color: #cacfd6; /* Metin rengi */
+    border-color: #585763; /* İsteğe bağlı sınır rengi */
+    outline: none;
+    box-shadow: none;
+}
+
+.form-control::placeholder {
+    font-size: 16px;
+    line-height: 1.5rem; /* Varsayılan line-height değeri */
+    position: relative;
+}
+
+.form-control {
+    background-color: #2e2e39;
+    border-color: #454550;
+    border-radius: 15px;
+    border-width: 0px;
+    resize: none;
+    width: 100%;
+    max-height: 200px;
+    padding-inline-start: 16px; 
+    padding-block-start: 14px;
+    padding-bottom: 14px;
+    overflow-y: auto;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    font-family: Söhne,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,Helvetica Neue,Arial,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+    font-size: 16px;
+    flex-grow: 1;
+    margin-right: 10px;
+    color: #cacfd6;
+    line-height: 1.5rem;
+}
+
+.form-control:focus {
+    background-color: #2e2e39; /* Odaklanıldığında istediğiniz arka plan rengi */
+    color: #cacfd6; /* Metin rengi */
+    border-color: #585763; /* İsteğe bağlı sınır rengi */
+    outline: none;
+    box-shadow: none;
+}
+
+.btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    flex-shrink: 0;
+    margin: auto;
+}
+
+.btn:focus {
+    box-shadow: none;
+}
+
+.chat-input-container {
+    inline-size: 80%;
+    max-inline-size: 600px;
+}
+
+.chat-input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 22px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.chat-input {
+    border: none;
+    outline: none;
+    inline-size: 100%;
+    font-size: 16px;
+    margin-inline-start: 10px;
+}
+
+.send-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.send-icon {
+    block-size: 24px;
+    inline-size: 24px;
+    fill: #fff;
+}
+
+/* Mac 1200px and 1919px */
+@media screen and (max-width: 1919px) {
+    .desktop {
+        /* Adjust styles for this screen size */
+    }
+    /* Add any additional styles for this screen size */
+}
+
+/* Macbook 768px and 1199px */
+@media screen and (max-width: 1199px) {
+    .desktop {
+        /* Adjust styles for this screen size */
+    }
+
+}
+
+/* iPad ve iPhone 768px (e.g., veya daha azı) */
+@media screen and (max-width: 767px) {
+    .desktop {
+        /* Adjust styles for this screen size */
+    }
+
+    /* Add any additional styles for this screen size */
+}

@@ -1,142 +1,26 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Chat App</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/lib/languages/python.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-  <style>
-    .page {
-      background-color: #232526;
-    }
-
-    .chat-box {
-      background-color: #232526;
-      border-radius: 15px;
-      padding: 15px;
-      height: 400px;
-      overflow-y: auto;
-    }
-    .user-message {
-      text-align: right;
-      background-color: #232526;
-    }
-    .bot-message {
-      text-align: left;
-      background-color: #232526;
-    }
-    .user-message p, .bot-message p {
-      display: inline-block;
-      padding: 10px;
-      border-radius: 15px;
-      color:#cacfd6
-    }
-
-    .form-control {
-      background-color: #232526;
-      border-color: #454550;
-      border-radius: 15px;
-      border-width: 1px;
-      resize: none;
-      min-height: 52px !important;
-      max-height: 53px !important;
-      padding-left: 30px; 
-      padding-bottom: 13px;
-      padding-top: 13px;
-      overflow-y: auto;
-    }
-
-    .form-control:focus {
-      background-color: #232526; /* Odaklanıldığında istediğiniz arka plan rengi */
-      color: #cacfd6; /* Metin rengi */
-      border-color: #585763; /* İsteğe bağlı sınır rengi */
-      outline: none;
-      box-shadow: none;
-    }
-
-    .send-icon {
-    height: 24px;
-    width: 24px;
-    fill: #ffffff;
-    }
-
-    .btn {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    flex-shrink: 0;
-    }
-
-    .btn:focus {
-      box-shadow: none;
-    }
-
-  </style>
-</head>
-<body class="page">
-  <div class="container mt-5">
-    <div class="chat-box mt-3">
-      <!-- Chat messages will be added here dynamically -->
-    </div>
-    <div class="form-group mt-3" style="display: flex; align-items: center;">
-      <textarea class="form-control" rows="3" placeholder="Message UnivacAI..." id="message-input"></textarea>
-      <button type="button" class="btn" id="send-btn">
-        <svg class="send-icon" viewBox="0 0 24 24">
-          <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
-        </svg>
-      </button>
-    </div>
-  </div>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const chatBox = document.querySelector(".chat-box");
-      const messageInput = document.querySelector("#message-input");
-      const sendBtn = document.querySelector("#send-btn");
-
-      function addMessage(message, isUser) {
-        const msgDiv = document.createElement("div");
-        msgDiv.classList.add("message", isUser ? "user-message" : "bot-message");
-        msgDiv.innerHTML = `<p>${message}</p>`;
-        chatBox.appendChild(msgDiv);
-        chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
-      }
-
-      sendBtn.addEventListener("click", function() {
-        const message = messageInput.value.trim();
-        if (message) {
-          addMessage(message, true); // Add user message
-          fetch('/api', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ message: message }),
-          })
-          .then(response => response.json())
-          .then(data => {
-            addMessage(data.answer, false); // Add bot response
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
-          messageInput.value = ""; // Clear input field
-        }
-      });
-
-      messageInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-          sendBtn.click();
-          e.preventDefault();
-        }
-      });
-    });
-  </script>
-</body>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>UnivacAI</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content=" Let's shape a new era for a better future.  ">
+        <link rel="icon" href="https://raw.githubusercontent.com/oceandi/links/main/univacai/images/logo/logo01.ico">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    </head>
+    <body>
+        <div class="desktop">
+            <div class="container">
+                <div class="chat-box">
+                    <!-- Sohbet kutusu içeriği burada -->
+                </div>
+                <div class="form-group">
+                    <textarea id="message-input" class="form-control" placeholder="Message UnivacAI…"></textarea>
+                    <button id="send-btn" class="btn"><svg class="send-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+                </div>
+            </div>
+        </div>
+        <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    </body>
 </html>
