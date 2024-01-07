@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function styleCodeBlock(code, language) {
     // Function to apply styling to code blocks
-    return `<pre><div class="bg-black rounded-md"><div class="flex items-center relative text-gray-200 bg-gray-800 dark:bg-token-surface-primary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>${language}</span><button class="flex gap-1 items-center">Copy code</button></div><div class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-${language}">${code}</code></div></div></pre>`;
+    return `<pre><div class="bg-black rounded-md"><div class="flex items-center relative text-gray-200 bg-gray-800 dark:bg-token-surface-primary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>${language}</span><button class="flex gap-1 items-center copy-code-button">Copy code</button></div><div class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-${language}">${code}</code></div></div></pre>`;
   }
 
   function addMessage(message, isUser) {
@@ -32,6 +32,51 @@ document.addEventListener('DOMContentLoaded', function() {
     formattedMessage += message.substring(lastIndex);
 
     msgDiv.innerHTML = isUser ? `<p>${formattedMessage}</p>` : formattedMessage;
+
+    chatBox.appendChild(msgDiv);
+    chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+  }
+
+  function escapeHtml(content) {
+    const htmlEscapeTable = {
+      "&": "&amp;",
+      '"': "&quot;",
+      "'": "&apos;",
+      ">": "&gt;",
+      "<": "&lt;",
+    };
+    return content.replace(/[&"'<>]/g, char => htmlEscapeTable[char]);
+  }
+
+  function addMessage(message, isUser) {
+    const msgDiv = document.createElement("div");
+    msgDiv.classList.add("message", isUser ? "user-message" : "bot-message");
+
+    // Check for code block syntax (```)
+    const codeBlockRegex = /```([a-z]+)\n([\s\S]*?)```/gm;
+    let match;
+    let lastIndex = 0;
+    let formattedMessage = '';
+
+    while ((match = codeBlockRegex.exec(message)) !== null) {
+      // Before code block
+      formattedMessage += escapeHtml(message.substring(lastIndex, match.index));
+      // Code block
+      const language = match[1];
+      const code = match[2].trim();
+      formattedMessage += styleCodeBlock(escapeHtml(code), language);
+      // Update lastIndex to search for the next code block
+      lastIndex = match.index + match[0].length;
+    }
+    // After the last code block
+    formattedMessage += escapeHtml(message.substring(lastIndex));
+
+    if (isUser) {
+      const escapedMessage = escapeHtml(formattedMessage);
+      msgDiv.innerHTML = `<p>${escapedMessage}</p>`;
+    } else {
+      msgDiv.innerHTML = formattedMessage; // Assuming bot messages will only contain code blocks
+    }
 
     chatBox.appendChild(msgDiv);
     chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
@@ -79,4 +124,44 @@ document.addEventListener('DOMContentLoaded', function() {
       currentRow = rowCount; // Şu anki satır sayısını güncelle
     }
   });
+  
+  function copyToClipboard(code) {
+    if (navigator.clipboard) { // Modern approach
+      navigator.clipboard.writeText(code).then(() => {
+        console.log('Code copied to clipboard!');
+      }).catch(err => {
+        console.error('Failed to copy to clipboard:', err);
+      });
+    } else { // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = code;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      console.log('Code copied to clipboard using fallback!');
+    }
+  }
+
+  // Event listener for the 'copy code' buttons
+  const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+      if (mutation.addedNodes) {
+        mutation.addedNodes.forEach(node => {
+          if (node.classList && node.classList.contains('message')) {
+            const copyButtons = node.querySelectorAll('.copy-code-button');
+            copyButtons.forEach(btn => {
+              btn.addEventListener('click', function() {
+                const codeToCopy = btn.parentNode.nextElementSibling.querySelector('code').innerText;
+                copyToClipboard(codeToCopy);
+              });
+            });
+          }
+        });
+      }
+    });
+  });
+
+  // We assume chatBox element is already defined in the script
+  observer.observe(chatBox, { childList: true });
 });
