@@ -2,14 +2,39 @@ document.addEventListener('DOMContentLoaded', function() {
   const chatBox = document.querySelector(".chat-box");
   const messageInput = document.querySelector("#message-input");
   const sendBtn = document.querySelector("#send-btn");
-  let currentRow = 1; // Şu anki satır sayısı
+
+  function styleCodeBlock(code, language) {
+    // Function to apply styling to code blocks
+    return `<pre><div class="bg-black rounded-md"><div class="flex items-center relative text-gray-200 bg-gray-800 dark:bg-token-surface-primary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>${language}</span><button class="flex gap-1 items-center">Copy code</button></div><div class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-${language}">${code}</code></div></div></pre>`;
+  }
 
   function addMessage(message, isUser) {
     const msgDiv = document.createElement("div");
     msgDiv.classList.add("message", isUser ? "user-message" : "bot-message");
-    msgDiv.innerHTML = `<p>${message}</p>`;
+
+    // Check for code block syntax (```)
+    const codeBlockRegex = /```([a-z]+)\n([\s\S]*?)```/gm;
+    let match;
+    let lastIndex = 0;
+    let formattedMessage = '';
+
+    while ((match = codeBlockRegex.exec(message)) !== null) {
+      // Before code block
+      formattedMessage += message.substring(lastIndex, match.index);
+      // Code block
+      const language = match[1];
+      const code = match[2].trim();
+      formattedMessage += styleCodeBlock(code, language);
+      // Update lastIndex to search for the next code block
+      lastIndex = match.index + match[0].length;
+    }
+    // After last code block
+    formattedMessage += message.substring(lastIndex);
+
+    msgDiv.innerHTML = isUser ? `<p>${formattedMessage}</p>` : formattedMessage;
+
     chatBox.appendChild(msgDiv);
-    chatBox.scrollTop = chatBox.scrollHeight; // En alta kaydır
+    chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
   }
 
   sendBtn.addEventListener("click", function() {
