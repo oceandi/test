@@ -41,6 +41,29 @@ html, body {
     line-height: 1.75;
 }
 
+/* Özel bir kaydırma çubuğu için genel stil tanımı */
+.chat-box::-webkit-scrollbar {
+    width: 8px; /* Kaydırma çubuğunun genişliği */
+    height: 16px;
+}
+
+/* Kaydırma çubuğunun parçası */
+.chat-box::-webkit-scrollbar-thumb {
+    background:hsla(0,0%,100%,.1); /* Kaydırıcı bölümünün arka plan rengi */
+    border-radius: 6px; /* Köşelerin yuvarlaklığı */
+}
+
+/* Kaydırma çubuğunun parçası fareyle üzerine gelindiğinde */
+.chat-box::-webkit-scrollbar-thumb:hover {
+    background: hsla(0,0%,100%,.1); /* Kaydırıcı bölümünün arka plan rengi (hover durumu) */
+}
+
+/* Kaydırma çubuğu yuvası */
+.chat-box::-webkit-scrollbar-track {
+    background: transparent; /* Kaydırma yuvasının arka plan rengi */
+    border-radius: 6px; /* Köşelerin yuvarlaklığı */
+}
+
 #message-input {
     block-size: 24px;
 }
@@ -282,6 +305,11 @@ html, body {
 
 .hljs {
     font-size: 14px;
+}
+
+pre {
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 /* Mac 1200px and 1919px */
