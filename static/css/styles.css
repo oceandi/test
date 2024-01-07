@@ -52,7 +52,7 @@ html, body {
     color:#ececf1;
     padding: 10px;
     border-radius: 15px;
-    white-space: normal;
+    white-space: pre-wrap;
 }
 
 .user-message p {
@@ -62,7 +62,7 @@ html, body {
     color:#ececf1;
     padding: 10px;
     border-radius: 15px;
-    white-space: normal;
+    white-space: pre-wrap;
 }
 
 .bot-message p {
@@ -72,7 +72,7 @@ html, body {
     color:#ececf1;
     padding: 10px;
     border-radius: 15px;
-    white-space: normal;
+    white-space: pre-wrap;
 }
 
 .form-group {

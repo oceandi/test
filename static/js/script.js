@@ -19,6 +19,12 @@ document.addEventListener('DOMContentLoaded', function() {
     return content.replace(/[&"'<>]/g, char => htmlEscapeTable[char]);
   }
 
+  function sendMessage() {
+    const htmlContent = document.getElementById('html-content').value;
+    // Burada htmlContent değerini modelle iletebilirsiniz
+    console.log(htmlContent);
+  }
+
   function addMessage(message, isUser) {
     const msgDiv = document.createElement("div");
     msgDiv.classList.add("message", isUser ? "user-message" : "bot-message");
