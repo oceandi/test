@@ -130,4 +130,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   observer.observe(chatBox, { childList: true });
+
+  window.addEventListener('load', (event) => {
+  messageInput.focus();
+});
 });
