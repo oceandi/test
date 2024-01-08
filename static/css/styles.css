@@ -2,7 +2,7 @@ html, body {
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
-    background-color: #2e2e39;
+    background-color: #343541;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -13,7 +13,7 @@ html, body {
     flex-direction: column;
     justify-content: end;
     align-items: center;
-    background-color: #2e2e39;
+    background-color: #343541;
     overflow: hidden;
     padding: 0px;
     align-content: center;
@@ -39,6 +39,7 @@ html, body {
     align-items: flex-start;
     margin-block-end: 10px;
     line-height: 1.75;
+    z-index: 3;
 }
 
 /* Özel bir kaydırma çubuğu için genel stil tanımı */
@@ -105,7 +106,7 @@ html, body {
 
 .form-group:focus-within {
     border: 1px solid rgba(217, 217, 227, .25);
-    background-color: #2e2e39; /* Odaklandığında istediğiniz arka plan rengi */
+    background-color: #343541; /* Odaklandığında istediğiniz arka plan rengi */
     color: #cacfd6; /* Metin rengi */
     border-color: rgba(217, 217, 227, .25); /* İsteğe bağlı sınır rengi */
     outline: none;
@@ -120,7 +121,7 @@ html, body {
 }
 
 .form-control {
-    background-color: #2e2e39;
+    background-color: #343541;
     border-color: #454550;
     border-radius: 0px;
     border-width: 0px;
@@ -146,7 +147,7 @@ textarea {
 }
 
 .form-control:focus {
-    background-color: #2e2e39; /* Odaklanıldığında istediğiniz arka plan rengi */
+    background-color: #343541; /* Odaklanıldığında istediğiniz arka plan rengi */
     color: #ececf1; /* Metin rengi */
     border-color: #585763; /* İsteğe bağlı sınır rengi */
     outline: none;
@@ -209,12 +210,12 @@ textarea {
 }
   
 .btn-filled, .btn-filled:hover, .btn-filled:visited {
-    background-color: #2e2e39;
+    background-color: #343541;
     color: rgba(255, 255, 255, .75);
 }
   
 .btn-neutral.btn-filled {
-    background-color: #2e2e39;
+    background-color: #343541;
     color: rgba(255, 255, 255, .75);
 }
   
@@ -260,7 +261,7 @@ textarea {
 }
 
 .dark .bg-token-surface-primary {
-    background-color: #2e2e39;
+    background-color: #343541;
 }
 
 .px-4 {
@@ -341,5 +342,6 @@ pre {
     .container {
         padding: 56px 28px 16px 28px;
     }
+
     /* Add any additional styles for this screen size */
 }
