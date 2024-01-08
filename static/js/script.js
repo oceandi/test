@@ -133,5 +133,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.addEventListener('load', (event) => {
   messageInput.focus();
-});
+  });
 });
