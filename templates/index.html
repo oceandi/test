@@ -22,7 +22,8 @@
                 <a href="#">Link 3</a>
             </div>
             <div id="content">
-                <button class="open-btn closed" onclick="toggleNav()"><span><div class="sbc"></span></button>
+                <button class="open-btn closed" onclick="toggleNav()" onmouseover="showTooltip(getTooltipText())" onmouseout="hideTooltip()"><span></span></button>
+                <div id="tooltip"></div>
             </div>
             <div class="container">
                 <div class="chat-box">
@@ -49,19 +50,46 @@
         <script src="{{ url_for('static', filename='js/button.js') }}"></script>
         <script>
             function toggleNav() {
-                var sidebar = document.getElementById("sidebar");
-                var content = document.getElementById("content");
-                var openBtn = document.querySelector(".open-btn");
+            var sidebar = document.getElementById("sidebar");
+            var content = document.getElementById("content");
+            var openBtn = document.querySelector(".open-btn");
+            var tooltip = document.getElementById("tooltip");
 
-                if (sidebar.style.width === "0px" || sidebar.style.width === "") {
+            if (sidebar.style.width === "0px" || sidebar.style.width === "") {
                 sidebar.style.width = "250px";
                 content.style.marginLeft = "250px";
                 openBtn.classList.remove("closed");
-                } else {
+                tooltip.innerHTML = getTooltipText();
+                hideTooltip();
+            } else {
                 sidebar.style.width = "0";
                 content.style.marginLeft = "0";
                 openBtn.classList.add("closed");
-                }
+                tooltip.innerHTML = getTooltipText();
+                hideTooltip();
+            }
+            }
+
+            function getTooltipText() {
+                var openBtn = document.querySelector(".open-btn");
+                return openBtn.classList.contains("closed") ? 'Open Sidebar' : 'Close Sidebar';
+            }
+
+            function showTooltip(text) {
+            var tooltip = document.getElementById("tooltip");
+            tooltip.innerHTML = text;
+
+            var openBtn = document.querySelector(".open-btn");
+            var buttonRect = openBtn.getBoundingClientRect();
+
+            tooltip.style.display = "block";
+            tooltip.style.left = (buttonRect.right + 10) + 'px'; // 10 piksel boşluk
+            tooltip.style.top = (buttonRect.top + (buttonRect.height / 2) - (tooltip.offsetHeight / 2)) + 'px';
+            }
+
+            function hideTooltip() {
+            var tooltip = document.getElementById("tooltip");
+            tooltip.style.display = "none";
             }
         </script>
     </body>
