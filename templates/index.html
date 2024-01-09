@@ -15,6 +15,15 @@
     </head>
     <body>
         <div class="desktop">
+            <div id="sidebar">
+                <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">×</a>
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+            </div>
+            <div id="content">
+                <button class="open-btn closed" onclick="toggleNav()"><span><div class="sbc"></span></button>
+            </div>
             <div class="container">
                 <div class="chat-box">
                     <!-- Sohbet kutusu içeriği burada -->
@@ -38,5 +47,22 @@
         </div>
         <script src="{{ url_for('static', filename='js/script.js') }}"></script>
         <script src="{{ url_for('static', filename='js/button.js') }}"></script>
+        <script>
+            function toggleNav() {
+                var sidebar = document.getElementById("sidebar");
+                var content = document.getElementById("content");
+                var openBtn = document.querySelector(".open-btn");
+
+                if (sidebar.style.width === "0px" || sidebar.style.width === "") {
+                sidebar.style.width = "250px";
+                content.style.marginLeft = "250px";
+                openBtn.classList.remove("closed");
+                } else {
+                sidebar.style.width = "0";
+                content.style.marginLeft = "0";
+                openBtn.classList.add("closed");
+                }
+            }
+        </script>
     </body>
 </html>
